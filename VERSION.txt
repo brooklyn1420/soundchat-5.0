@@ -1,0 +1,3 @@
+SoundChat v2-20261119-2022
+Exported 2026-11-20T02:22:58.757Z
+Source export for GitHub — see README.md and docs/TERMUX_GITHUB_UPLOAD.md.

@@ -1,0 +1,1 @@
+ALTER TABLE messages ADD COLUMN music_in_video INTEGER NOT NULL DEFAULT 0;

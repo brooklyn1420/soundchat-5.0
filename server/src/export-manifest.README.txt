@@ -1,0 +1,5 @@
+server/src/export-manifest.ts is generated fresh on every export: it lists every
+text file in this zip (path + full content) plus the four background images.
+It is the one source file not inside the zip itself — including it would embed
+the whole archive inside itself. Regenerate it by running an export from the
+SoundChat Profile tab (Download for GitHub).

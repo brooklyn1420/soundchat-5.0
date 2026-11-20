@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+@import "tailwindcss-safe-area";
+
+@theme {
+  --text-xs: 12px;
+  --text-xs--line-height: 16px;
+  --text-sm: 14px;
+  --text-sm--line-height: 20px;
+  --text-base: 16px;
+  --text-base--line-height: 24px;
+  --text-lg: 18px;
+  --text-lg--line-height: 28px;
+  --text-xl: 20px;
+  --text-xl--line-height: 28px;
+  --text-2xl: 24px;
+  --text-2xl--line-height: 32px;
+  --text-3xl: 30px;
+  --text-3xl--line-height: 36px;
+  --text-4xl: 36px;
+  --text-4xl--line-height: 40px;
+  --text-5xl: 48px;
+  --text-5xl--line-height: 52px;
+  --font-display: "Sora", system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: light dark;
+  --bg: #f6f1ea;
+  --surface: #fffdf9;
+  --raised: #efe7db;
+  --text: #1d1820;
+  --dim: #6f6474;
+  --border: #e3d9cc;
+  --accent: #e63e1d;
+  --accent-ink: #ffffff;
+  --amber: #d98a06;
+  --player-bg: #17131c;
+  --player-text: #faf6f0;
+  --radius: 16px;
+  --space-surface: var(--surface);
+  --space-surface-alt: var(--raised);
+  --space-muted: var(--dim);
+  --space-border: var(--border);
+  --space-accent: var(--accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121014;
+    --surface: #1e1b22;
+    --raised: #292430;
+    --text: #faf6f0;
+    --dim: #a79fb3;
+    --border: #353040;
+    --accent: #ff4d2e;
+    --accent-ink: #ffffff;
+    --amber: #ffb03a;
+    --player-bg: #0b090e;
+    --player-text: #faf6f0;
+  }
+}
+
+/* Phone tap targets: at least 32px tall. */
+@layer base {
+  button, [role="button"], select, summary, input:not([type="checkbox"], [type="radio"]) {
+    min-height: 2rem;
+  }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Animated equalizer bars in the now-playing bar */
+@keyframes eq-bounce {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+.eq-bar {
+  transform-origin: bottom;
+  animation: eq-bounce 0.9s ease-in-out infinite;
+}
+.eq-paused .eq-bar {
+  animation-play-state: paused;
+  transform: scaleY(0.3);
+}
+@media (prefers-reduced-motion: reduce) {
+  .eq-bar { animation: none; transform: scaleY(0.6); }
+}
+
+/* ---- App backgrounds (chosen in Profile) ---- */
+.app-bg { position: relative; }
+.app-bg-image, .app-bg-gradient { position: absolute; inset: 0; pointer-events: none; }
+.app-bg-image { background-size: cover; background-position: center; }
+.app-bg-scrim { position: absolute; inset: 0; pointer-events: none; background: rgba(10,8,14,0.58); }
+.app-bg-classic .app-bg-scrim { display: none; }
+.app-bg-has .app-bg-scrim { display: block; }
+/* When a photo/gradient background is active, cards get a frosted readable surface */
+.app-bg-has {
+  color: #faf6f0;
+  --surface: rgba(22,19,28,0.86);
+  --raised: rgba(255,255,255,0.14);
+  --bg: rgba(18,15,24,0.55);
+  --text: #faf6f0;
+  --dim: #d6cfe0;
+  --border: rgba(255,255,255,0.22);
+}
+.bg-galaxy { background: radial-gradient(ellipse 80% 50% at 20% 20%, #4c1d95 0%, transparent 55%), radial-gradient(ellipse 70% 60% at 85% 75%, #0ea5e9 0%, transparent 50%), radial-gradient(ellipse 60% 40% at 60% 30%, #db2777 0%, transparent 45%), linear-gradient(160deg, #0b0620, #1e1040 55%, #070a24); }
+.bg-galaxy::after { content:""; position:absolute; inset:0; background-image: radial-gradient(2px 2px at 20% 30%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 70% 20%, #fff 50%, transparent 51%), radial-gradient(2px 2px at 85% 60%, #ffe 50%, transparent 51%), radial-gradient(1.5px 1.5px at 40% 80%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 55% 45%, #fff 50%, transparent 51%); opacity:.8; }
+.bg-sunset { background: linear-gradient(180deg, #2d1b4e 0%, #7c2d6e 28%, #e94f37 55%, #f59e0b 78%, #fde68a 100%); }
+.bg-neon-nights { background: radial-gradient(ellipse 70% 45% at 15% 85%, rgba(236,72,153,.55), transparent 60%), radial-gradient(ellipse 70% 45% at 85% 15%, rgba(34,211,238,.5), transparent 60%), linear-gradient(150deg, #050816, #111133 60%, #1a0533); }
+.bg-forest { background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(110,231,183,.35), transparent 60%), linear-gradient(180deg, #0a2418, #14532d 55%, #052e16); }
+
+@keyframes sheet-up {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.sheet-up {
+  animation: sheet-up 0.22s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sheet-up { animation: none; }
+}
+
+/* ---- Now Playing "Watch" view — animated visuals while a song plays ---- */
+@keyframes mv-zoom {
+  from { transform: scale(1) translate(0, 0); }
+  to { transform: scale(1.14) translate(-1.5%, 1.5%); }
+}
+.mv-art { animation: mv-zoom 8s ease-in-out infinite alternate; }
+@keyframes mv-glow-spin {
+  to { transform: rotate(360deg); }
+}
+.mv-glow { animation: mv-glow-spin 18s linear infinite; }
+@keyframes mv-note-rise {
+  0% { transform: translateY(12px); opacity: 0; }
+  25% { opacity: 0.9; }
+  100% { transform: translateY(-52px); opacity: 0; }
+}
+.mv-note { animation: mv-note-rise 3.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .mv-art, .mv-glow, .mv-note { animation: none; }
+}
+
+/* ---- Snap filter overlays (camera preview + sent snaps) ---- */
+@keyframes snap-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+.snap-float { animation: snap-float 3.2s ease-in-out infinite; }
+@keyframes snap-twinkle {
+  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+.snap-twinkle { animation: snap-twinkle 1.8s ease-in-out infinite; }
+@keyframes snap-rec-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.snap-rec { animation: snap-rec-pulse 1.1s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .snap-float, .snap-twinkle, .snap-rec { animation: none; }
+}
+
+/* Face lens pop-in when tracking locks on (or the lens first appears) */
+@keyframes lens-pop {
+  from { transform: scale(0.9); opacity: 0.3; }
+  to { transform: scale(1); opacity: 1; }
+}
+.lens-pop { animation: lens-pop 0.28s ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  .lens-pop { animation: none; }
+}

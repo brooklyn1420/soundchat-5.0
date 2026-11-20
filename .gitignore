@@ -1,0 +1,28 @@
+# deps
+node_modules/
+.bun-cache/
+
+# build output
+dist/
+client/dist/
+client/dist-cvm/
+server/dist/
+.space-build/
+.space-build-cvm/
+
+# artifact runtime data — never commit your private app data
+app.db
+app.db-shm
+app.db-wal
+blobs/
+.audit/
+audits/
+.harness/
+
+# local env
+.env
+.env.local
+
+# OS / editor
+.DS_Store
+*.log
